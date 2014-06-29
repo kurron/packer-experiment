@@ -16,3 +16,9 @@ After several minutes, you should have two new Vagrant boxes ready to load into 
 The only thing I have not figured out how to do is how to have the installer install the virtualizatioon specific 
 kernel.  Right now, the stock kernel is being used.  I'm sure I'm losing a bit of performance because of that but 
 I'm not going to complain.  I can create new configurations at will.
+
+To try out the new server box, try this:
+
+* `vagrant box add packer/trusty-x64-server trusty-x64-server.box`
+* `vagrant status`
+* `vagrant up`
