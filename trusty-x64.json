@@ -12,7 +12,7 @@
 		"type": "virtualbox-iso",
         "iso_checksum": "01545fa976c8367b4f0d59169ac4866c",
 		"iso_checksum_type": "md5",
-        "iso_url": "file:///C:/Users/rkurr/BitTorrent/ForDesktop/Ubuntu/ubuntu-14.04/ubuntu-14.04-server-amd64.iso",
+        "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04-server-amd64.iso",
         "ssh_username": "{{user `ssh_name`}}",
 	    "boot_command": [
 		    "<esc><esc><enter><wait>",
@@ -35,16 +35,21 @@
 		"hard_drive_interface": "sata",
 		"headless": false,
 		"http_directory": "trusty-x64",
-		"http_port_min": 80000,
-		"http_port_max": 90000,
-		"output_directory": "packer-ubuntu",
+		"http_port_min": 8000,
+		"http_port_max": 9000,
+		"output_directory": "packer-trusty-x64-server",
         "shutdown_command": "sudo poweroff",
-		"ssh_key_path": "",
         "ssh_password": "{{user `ssh_pass`}}",
         "ssh_port": 22,
 		"ssh_wait_timeout": "20m",
-		"vboxmanage": [],
+		"vboxmanage": [ 
+		    ["modifyvm", "{{.Name}}", "--vram", "12"],
+		    ["modifyvm", "{{.Name}}", "--memory", "256"], 
+		    ["modifyvm", "{{.Name}}", "--cpus", "1"], 
+		    ["modifyvm", "{{.Name}}", "--audio", "none"], 
+		    ["modifyvm", "{{.Name}}", "--clipboard", "bidirectional"] 
+	    ],
 		"vboxmanage_post": [],
-		"vm_name": "packer-Trusty-x64-server"
+		"vm_name": "packer-trusty-x64-server"
     }]
 }
