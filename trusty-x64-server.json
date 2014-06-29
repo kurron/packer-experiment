@@ -53,6 +53,17 @@
 		"vboxmanage_post": [],
 		"vm_name": "trusty-x64-server"
     }],	
+	"provisioners": [
+        {
+            "type": "shell",
+            "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+            "inline": [
+                "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
+				"ln -sf /usr/bin/docker.io /usr/local/bin/docker",
+				"sed -i '$acomplete -F _docker docker' /etc/bash_completion.d/docker.io"
+            ]
+        }    
+    ],
     "post-processors": [
         {
              "type": "vagrant",
