@@ -44,7 +44,8 @@
         "ssh_port": 22,
         "ssh_wait_timeout": "20m",
 		"vboxmanage": [ 
-		    ["modifyvm", "{{.Name}}", "--vram", "12"]
+		    ["modifyvm", "{{.Name}}", "--vram", "16"],
+		    ["modifyvm", "{{.Name}}", "--memory", "512"]
 	    ],
 		"vboxmanage_post": [],
 		"vm_name": "packer-trusty-x64-server"
