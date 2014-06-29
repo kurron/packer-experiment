@@ -1,4 +1,7 @@
 {
+    "description": "Builds a bare bones Ubuntu Server x64 box",
+	"min_packer_version": "0.6.0",
+
     "variables": {
         "ssh_name": "kappataumu",
         "ssh_pass": "kappataumu",
@@ -7,27 +10,10 @@
 
     "builders": [{
         "type": "virtualbox-iso",
-        "guest_os_type": "Ubuntu_64",
-
-        "vboxmanage": [
-            ["modifyvm", "{{.Name}}", "--vram", "32"]
-        ],
-
-        "disk_size" : 10000,
-
         "iso_checksum": "01545fa976c8367b4f0d59169ac4866c",
 		"iso_checksum_type": "md5",
         "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04-server-amd64.iso",
-
-        "http_directory" : "ubuntu_64",
-        "http_port_min" : 9001,
-        "http_port_max" : 9001,
-
         "ssh_username": "{{user `ssh_name`}}",
-        "ssh_password": "{{user `ssh_pass`}}",
-        "ssh_wait_timeout": "20m",
-
-        "shutdown_command": "echo {{user `ssh_pass`}} | sudo -S shutdown -P now",
 
         "boot_command" : [
             "<esc><esc><enter><wait>",
@@ -39,6 +25,28 @@
             "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
             "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
             "initrd=/install/initrd.gz -- <enter>"
-        ]
+        ],
+
+        "boot_wait": "10s",
+        "disk_size" : 40000,
+		"floppy_files": [],
+		"format": "ova",
+	    "guest_additions_mode": "upload",	
+        "guest_os_type": "Ubuntu_64",
+		"hard_drive_interface": "sata",
+		"headless": false,
+        "http_directory" : "ubuntu_64",
+        "http_port_min" : 8000,
+        "http_port_max" : 9000,
+		"output_directory": "output-virtualbox-iso",
+        "shutdown_command": "echo {{user `ssh_pass`}} | sudo -S shutdown -P now",
+        "ssh_password": "{{user `ssh_pass`}}",
+        "ssh_port": 22,
+        "ssh_wait_timeout": "20m",
+		"vboxmanage": [ 
+		    ["modifyvm", "{{.Name}}", "--vram", "12"]
+	    ],
+		"vboxmanage_post": [],
+		"vm_name": "packer-trusty-x64-server"
     }]
 }
