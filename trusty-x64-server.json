@@ -1,5 +1,5 @@
 {
-    "description": "Builds a bare bones Ubuntu Server x64 box",
+    "description": "Builds a bare bones Ubuntu 14.04 Server x64 box",
 	"min_packer_version": "0.6.0",
 
     "variables": {
@@ -53,5 +53,10 @@
 		"vboxmanage_post": [],
 		"vm_name": "trusty-x64-server"
     }],	
-    "post-processors": ["vagrant"]
+    "post-processors": [
+        {
+             "type": "vagrant",
+             "output": "vagrant/trusty-x64-server.box"
+        }
+    ]
 }
