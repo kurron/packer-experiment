@@ -5,7 +5,7 @@
     "variables": {
         "ssh_name": "kappataumu",
         "ssh_pass": "kappataumu",
-        "hostname": "packer-test"
+        "hostname": "trusty-server"
     },
 
     "builders": [{
@@ -35,7 +35,7 @@
         "guest_os_type": "Ubuntu_64",
 		"hard_drive_interface": "sata",
 		"headless": false,
-        "http_directory" : "ubuntu_64",
+        "http_directory" : "trusty-x64-server",
         "http_port_min" : 8000,
         "http_port_max" : 9000,
 		"output_directory": "output-virtualbox-iso",
@@ -51,6 +51,6 @@
 		    ["modifyvm", "{{.Name}}", "--clipboard", "bidirectional"]
 	    ],
 		"vboxmanage_post": [],
-		"vm_name": "packer-trusty-x64-server"
+		"vm_name": "trusty-x64-server"
     }]
 }
