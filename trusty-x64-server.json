@@ -65,7 +65,12 @@
 				"wget --no-check-certificate -O authorized_keys 'https://github.com/mitchellh/vagrant/raw/master/keys/vagrant.pub'",
 				"mv authorized_keys /home/vagrant/.ssh",
 				"chown -R vagrant /home/vagrant/.ssh",
-				"chmod -R go-rwsx /home/vagrant/.ssh"
+				"chmod -R go-rwsx /home/vagrant/.ssh",
+				"apt-get install linux-headers-$(uname -r)",
+				"mkdir -p /mnt/virtualbox",
+				"mount -o loop /home/vagrant/VBoxGuestAdditions.iso /mnt/virtualbox",
+				"/mnt/virtualbox/VBoxLinuxAdditions.run --nox11",
+				"umount /mnt/virtualbox"
             ]
         }    
     ],
