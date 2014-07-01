@@ -77,7 +77,7 @@
     "post-processors": [
         {
              "type": "vagrant",
-             "output": "trusty-x64-server.box"
+             "output": "vagrant/trusty-x64-server.box"
         }
     ]
 }
