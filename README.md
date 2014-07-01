@@ -13,7 +13,7 @@ The steps are simple:
 * repeat with `packer build trusty-x64-desktop.json`
  
 After several minutes, you should have two new Vagrant boxes ready to load into Vagrant for further refinement.  
-The only thing I have not figured out how to do is how to have the installer install the virtualizatioon specific 
+The only thing I have not figured out how to do is how to have the installer install the virtualization specific 
 kernel.  Right now, the stock kernel is being used.  I'm sure I'm losing a bit of performance because of that but 
 I'm not going to complain.  I can create new configurations at will.
 
