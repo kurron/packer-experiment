@@ -42,7 +42,7 @@
         "shutdown_command": "echo {{user `ssh_pass`}} | sudo -S shutdown -P now",
         "ssh_password": "{{user `ssh_pass`}}",
         "ssh_port": 22,
-        "ssh_wait_timeout": "20m",
+        "ssh_wait_timeout": "30m",
 		"vboxmanage": [ 
 		    ["modifyvm", "{{.Name}}", "--vram", "32"],
 		    ["modifyvm", "{{.Name}}", "--memory", "4096"],
@@ -59,6 +59,7 @@
             "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "inline": [
                 "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
+				"echo 'Defaults !requiretty' >> /etc/sudoers",
 				"ln -sf /usr/bin/docker.io /usr/local/bin/docker",
 				"sed -i '$acomplete -F _docker docker' /etc/bash_completion.d/docker.io",
 				"mkdir /home/vagrant/.ssh",
@@ -70,7 +71,11 @@
 				"mkdir -p /mnt/virtualbox",
 				"mount -o loop /home/vagrant/VBoxGuestAdditions.iso /mnt/virtualbox",
 				"/mnt/virtualbox/VBoxLinuxAdditions.run",
-				"umount /mnt/virtualbox"
+				"umount /mnt/virtualbox",
+			    "echo 'Zeroing device to make space...'",
+		        "dd if=/dev/zero of=/EMPTY bs=1M",
+		        "rm -f /EMPTY",
+		        "sync"
             ]
         }    
     ],
