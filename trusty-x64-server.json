@@ -1,6 +1,6 @@
 {
     "description": "Builds a bare bones Ubuntu 14.04 Server x64 box",
-	"min_packer_version": "0.6.0",
+    "min_packer_version": "0.6.1",
 
     "variables": {
         "ssh_name": "vagrant",
@@ -11,7 +11,7 @@
     "builders": [{
         "type": "virtualbox-iso",
         "iso_checksum": "01545fa976c8367b4f0d59169ac4866c",
-	    "iso_checksum_type": "md5",
+        "iso_checksum_type": "md5",
         "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04-server-amd64.iso",
         "ssh_username": "{{user `ssh_name`}}",
 
@@ -29,16 +29,16 @@
 
         "boot_wait": "10s",
         "disk_size" : 40000,
-	    "floppy_files": [],
-	    "format": "ovf",
-	    "guest_additions_mode": "upload",	
+        "floppy_files": [],
+        "format": "ovf",
+        "guest_additions_mode": "upload",	
         "guest_os_type": "Ubuntu_64",
-	    "hard_drive_interface": "sata",
-	    "headless": false,
+        "hard_drive_interface": "sata",
+        "headless": false,
         "http_directory" : "trusty-x64-server",
         "http_port_min" : 8000,
         "http_port_max" : 9000,
-	    "output_directory": "output-virtualbox-iso",
+        "output_directory": "output-virtualbox-iso",
         "shutdown_command": "echo {{user `ssh_pass`}} | sudo -S shutdown -P now",
         "ssh_password": "{{user `ssh_pass`}}",
         "ssh_port": 22,
@@ -60,22 +60,22 @@
             "inline": [
                 "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
                 "echo 'Defaults !requiretty' >> /etc/sudoers",
-		        "ln -sf /usr/bin/docker.io /usr/local/bin/docker",
-		        "sed -i '$acomplete -F _docker docker' /etc/bash_completion.d/docker.io",
-		        "mkdir /home/vagrant/.ssh",
-		        "wget --no-check-certificate -O authorized_keys 'https://github.com/mitchellh/vagrant/raw/master/keys/vagrant.pub'",
-		        "mv authorized_keys /home/vagrant/.ssh",
-		        "chown -R vagrant /home/vagrant/.ssh",
-		        "chmod -R go-rwsx /home/vagrant/.ssh",
-		        "apt-get install linux-headers-$(uname -r)",
-		        "mkdir -p /mnt/virtualbox",
-		        "mount -o loop /home/vagrant/VBoxGuestAdditions.iso /mnt/virtualbox",
-		        "/mnt/virtualbox/VBoxLinuxAdditions.run --nox11",
-		        "umount /mnt/virtualbox",
-		        "echo 'Zeroing device to make space...'",
-		        "dd if=/dev/zero of=/EMPTY bs=1M",
-		        "rm -f /EMPTY",
-		        "sync"
+                "ln -sf /usr/bin/docker.io /usr/local/bin/docker",
+                "sed -i '$acomplete -F _docker docker' /etc/bash_completion.d/docker.io",
+                "mkdir /home/vagrant/.ssh",
+                "wget --no-check-certificate -O authorized_keys 'https://github.com/mitchellh/vagrant/raw/master/keys/vagrant.pub'",
+                "mv authorized_keys /home/vagrant/.ssh",
+                "chown -R vagrant /home/vagrant/.ssh",
+                "chmod -R go-rwsx /home/vagrant/.ssh",
+                "apt-get install linux-headers-$(uname -r)",
+                "mkdir -p /mnt/virtualbox",
+                "mount -o loop /home/vagrant/VBoxGuestAdditions.iso /mnt/virtualbox",
+                "/mnt/virtualbox/VBoxLinuxAdditions.run --nox11",
+                "umount /mnt/virtualbox",
+                "echo 'Zeroing device to make space...'",
+                "dd if=/dev/zero of=/EMPTY bs=1M",
+                "rm -f /EMPTY",
+                "sync"
             ]
         }    
     ],
