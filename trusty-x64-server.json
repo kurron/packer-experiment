@@ -53,14 +53,14 @@
 	"vboxmanage_post": [],
 	"vm_name": "trusty-x64-server"
     }],	
-	"provisioners": [
+    "provisioners": [
         {
             "type": "shell",
             "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "inline": [
                 "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
                 "echo 'Defaults !requiretty' >> /etc/sudoers",
-                "apt-get install dkms build-essential aptitude acpid docker.io iftop tree",
+                "apt-get install dkms build-essential aptitude acpid docker.io iftop",
                 "ln -sf /usr/bin/docker.io /usr/local/bin/docker",
                 "sed -i '$acomplete -F _docker docker' /etc/bash_completion.d/docker.io",
                 "mkdir /home/vagrant/.ssh",
@@ -78,7 +78,16 @@
                 "rm -f /EMPTY",
                 "sync"
             ]
-        }    
+        },
+        {
+            "type": "shell",
+            "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+            "script": "scripts/install-ansible.sh"
+        },
+        {
+            "type": "ansible-local",
+            "playbook_file": "ansible/ansible-server.yml"
+        }
     ],
     "post-processors": [
         {
