@@ -18,7 +18,7 @@
         "boot_command" : [
             "<esc><esc><enter><wait>",
             "/install/vmlinuz noapic ",
-            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed-vanilla.cfg ",
             "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
             "hostname={{user `hostname`}} ",
             "fb=false debconf/frontend=noninteractive ",
@@ -35,7 +35,7 @@
         "guest_os_type": "Ubuntu_64",
         "hard_drive_interface": "sata",
         "headless": false,
-        "http_directory" : "trusty-x64-server",
+        "http_directory" : "web-server",
         "http_port_min" : 8000,
         "http_port_max" : 9000,
         "output_directory": "output-virtualbox-iso",
@@ -60,6 +60,7 @@
             "inline": [
                 "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
                 "echo 'Defaults !requiretty' >> /etc/sudoers",
+                "apt-get install dkms build-essential aptitude acpid docker.io iftop tree",
                 "ln -sf /usr/bin/docker.io /usr/local/bin/docker",
                 "sed -i '$acomplete -F _docker docker' /etc/bash_completion.d/docker.io",
                 "mkdir /home/vagrant/.ssh",
