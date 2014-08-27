@@ -1,7 +1,7 @@
 ---
 # The playbook will configure the bare minimum needed for an Ubuntu server.
 
-- hosts: all
+- hosts: localhost
   sudo: yes
   gather_facts: yes
   tasks:
@@ -53,11 +53,8 @@
       - name: Remove all ISOs in vagrant home directory
         shell: "rm /home/vagrant/*.iso"
 
-      - name: Set up passwordless sudo
-        script: scripts/passwordless-sudo.sh
-
-      - name: Fix some minore Docker issues
-        script: scripts/tidy-up-docker.sh
+      - name: Fix some minor Docker issues
+        script: /tmp/packer-provisioner-ansible-local/scripts/tidy-up-docker.sh
 
       - name: Prepare disk for compression
-        script: scripts/zero-out-disk.sh
+        script: /tmp/packer-provisioner-ansible-local/scripts/zero-out-disk.sh

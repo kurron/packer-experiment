@@ -57,12 +57,12 @@
         {
             "type": "shell",
             "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-            "script": "scripts/install-ansible.sh"            
+            "scripts": ["ansible/scripts/passwordless-sudo.sh", "ansible/scripts/install-ansible.sh"]
         },
         {
             "type"          : "ansible-local",
             "playbook_file" : "ansible/ansible-server.yml",
-            "playbook_dir"  : "scripts"
+            "playbook_dir"  : "ansible"
         }
     ],
     "post-processors": [
