@@ -5,5 +5,59 @@
   sudo: yes
   gather_facts: yes
   tasks:
-   - apt: name=tree state=present update_cache=true cache_valid_time=600
+      - name: Install required packages
+        apt: "name={{ item }} state=present update_cache=true cache_valid_time=600"
+        with_items:
+            - tree
+            - aptitude
+            - acpid
+            - iftop
+            - dkms
+            - build-essential
+            - docker.io
 
+      - name: Install kernel packages for Guest Additions
+        apt: "name=linux-headers-{{ ansible_kernel }} state=present update_cache=true cache_valid_time=600"
+
+      - name: Configure Vagrant .ssh directory
+        file: path=/home/vagrant/.ssh state=directory owner=vagrant group=vagrant mode=700
+
+      - name: Get Vagrant's public key
+        get_url: url=https://github.com/mitchellh/vagrant/raw/master/keys/vagrant.pub
+                 dest=/home/vagrant/.ssh/authorized_keys
+                 owner=vagrant
+                 group=vagrant
+                 mode=600
+
+      - name: Get VirtualBox version
+        shell: cat /home/vagrant/.vbox_version
+        register: virtualbox_version
+
+      - name: Mount VirtualBox guest additions ISO
+        mount: name=/tmp/vbox
+               src=/home/vagrant/VBoxGuestAdditions.iso
+               opts=loop
+               state=mounted
+               fstype=iso9660
+
+      - name: Run VirtualBox guest additions installation
+        shell: sh /tmp/vbox/VBoxLinuxAdditions.run
+        failed_when: false
+
+      - name: Unmount VirtualBox guest additions ISO
+        mount: name=/tmp/vbox
+               src=/home/vagrant/VBoxGuestAdditions.iso
+               state=unmounted
+               fstype=iso9660
+
+      - name: Remove all ISOs in vagrant home directory
+        shell: "rm /home/vagrant/*.iso"
+
+      - name: Set up passwordless sudo
+        script: scripts/passwordless-sudo.sh
+
+      - name: Fix some minore Docker issues
+        script: scripts/tidy-up-docker.sh
+
+      - name: Prepare disk for compression
+        script: scripts/zero-out-disk.sh

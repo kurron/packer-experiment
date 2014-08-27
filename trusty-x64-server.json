@@ -57,36 +57,12 @@
         {
             "type": "shell",
             "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-            "inline": [
-                "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers",
-                "echo 'Defaults !requiretty' >> /etc/sudoers",
-                "apt-get install dkms build-essential aptitude acpid docker.io iftop",
-                "ln -sf /usr/bin/docker.io /usr/local/bin/docker",
-                "sed -i '$acomplete -F _docker docker' /etc/bash_completion.d/docker.io",
-                "mkdir /home/vagrant/.ssh",
-                "wget --no-check-certificate -O authorized_keys 'https://github.com/mitchellh/vagrant/raw/master/keys/vagrant.pub'",
-                "mv authorized_keys /home/vagrant/.ssh",
-                "chown -R vagrant /home/vagrant/.ssh",
-                "chmod -R go-rwsx /home/vagrant/.ssh",
-                "apt-get install linux-headers-$(uname -r)",
-                "mkdir -p /mnt/virtualbox",
-                "mount -o loop /home/vagrant/VBoxGuestAdditions.iso /mnt/virtualbox",
-                "/mnt/virtualbox/VBoxLinuxAdditions.run --nox11",
-                "umount /mnt/virtualbox",
-                "echo 'Zeroing device to make space...'",
-                "dd if=/dev/zero of=/EMPTY bs=1M",
-                "rm -f /EMPTY",
-                "sync"
-            ]
+            "script": "scripts/install-ansible.sh"            
         },
         {
-            "type": "shell",
-            "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-            "script": "scripts/install-ansible.sh"
-        },
-        {
-            "type": "ansible-local",
-            "playbook_file": "ansible/ansible-server.yml"
+            "type"          : "ansible-local",
+            "playbook_file" : "ansible/ansible-server.yml",
+            "playbook_dir"  : "scripts"
         }
     ],
     "post-processors": [
