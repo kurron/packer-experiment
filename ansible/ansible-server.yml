@@ -8,13 +8,14 @@
       - name: Install required packages
         apt: "name={{ item }} state=present update_cache=true cache_valid_time=600"
         with_items:
-            - tree
-            - aptitude
+#           - tree
+#           - aptitude
             - acpid
-            - iftop
+#           - iftop
             - dkms
             - build-essential
-            - docker.io
+            - wget
+#           - docker.io
 
       - name: Install kernel packages for Guest Additions
         apt: "name=linux-headers-{{ ansible_kernel }} state=present update_cache=true cache_valid_time=600"
@@ -53,8 +54,8 @@
       - name: Remove all ISOs in vagrant home directory
         shell: "rm /home/vagrant/*.iso"
 
-      - name: Fix some minor Docker issues
-        script: /tmp/packer-provisioner-ansible-local/scripts/tidy-up-docker.sh
+#     - name: Fix some minor Docker issues
+#       script: /tmp/packer-provisioner-ansible-local/scripts/tidy-up-docker.sh
 
       - name: Prepare disk for compression
         script: /tmp/packer-provisioner-ansible-local/scripts/zero-out-disk.sh
