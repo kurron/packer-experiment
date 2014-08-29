@@ -57,7 +57,7 @@
         {
             "type": "shell",
             "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-            "scripts": ["ansible/scripts/passwordless-sudo.sh", "ansible/scripts/install-ansible.sh"]
+            "scripts": ["ansible/scripts/passwordless-sudo.sh", "ansible/scripts/fix-staging-permissions.sh", "ansible/scripts/install-ansible.sh"]
         },
         {
             "type"          : "ansible-local",
