@@ -22,3 +22,5 @@ To try out the new server box, try this:
 * `vagrant box add packer/trusty-x64-server trusty-x64-server.box`
 * `vagrant status`
 * `vagrant up`
+
+Use `vagrant box add packer-trusty-x64-server vagrant/trusty-x64-server.box` to import the boxes into Vagrant.
