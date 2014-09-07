@@ -38,7 +38,7 @@
                fstype=iso9660
 
       - name: Run VirtualBox guest additions installation
-        shell: sh /tmp/vbox/VBoxLinuxAdditions.run
+        shell: yes | sh /tmp/vbox/VBoxLinuxAdditions.run
         failed_when: false
 
       - name: Unmount VirtualBox guest additions ISO
@@ -47,11 +47,11 @@
                state=unmounted
                fstype=iso9660
 
+      - name: Work around VirtualBox Ticket 12879 
+        command: "ln -s /opt/VBoxGuestAdditions-4.3.14/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions"
+
       - name: Remove all ISOs in vagrant home directory
         shell: "rm /home/vagrant/*.iso"
-
-      - name: Work around VirtualBox Ticket 12879 
-        command: "ln -s /opt/VBoxGuestAdditions-4.3.14/lib/VBoxGuestAdditions /usr/lib"
 
 #     - name: Fix some minor Docker issues
 #       script: /tmp/packer-provisioner-ansible-local/scripts/tidy-up-docker.sh
