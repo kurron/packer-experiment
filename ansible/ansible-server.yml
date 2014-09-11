@@ -27,6 +27,9 @@
                  group=vagrant
                  mode=0600
 
+      - name: Disable DNS lookup for SSH 
+        shell: "echo 'UseDNS no' >> /etc/ssh/sshd_config"
+
 #     - name: Get VirtualBox version
 #       shell: cat /home/vagrant/.vbox_version
 #       register: virtualbox_version
