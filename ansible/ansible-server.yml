@@ -5,17 +5,13 @@
   sudo: yes
   gather_facts: yes
   tasks:
-      - name: Install required packages
+      - name: Install desired packages
         apt: "name={{ item }} state=present update_cache=true cache_valid_time=600"
         with_items:
-            - acpid
-            - dkms
-            - build-essential
-            - libdbus-1-3
+            - aptitude
+            - iftop
+            - tree
             - wget
-
-      - name: Install kernel packages for Guest Additions
-        apt: "name=linux-headers-{{ ansible_kernel }} state=present update_cache=true cache_valid_time=600"
 
       - name: Configure Vagrant .ssh directory
         file: path=/home/vagrant/.ssh state=directory owner=vagrant group=vagrant mode=0700
