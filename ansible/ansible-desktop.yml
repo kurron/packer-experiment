@@ -5,50 +5,27 @@
   sudo: yes
   gather_facts: yes
   tasks:
-      - name: Install required packages
+      - name: Install desired packages
         apt: "name={{ item }} state=present update_cache=true cache_valid_time=600"
         with_items:
-            - acpid
-            - dkms
-            - build-essential
+            - aptitude
+            - iftop
+            - tree
+            - wget
             - xubuntu-desktop
 
-      - name: Install kernel packages for Guest Additions
-        apt: "name=linux-headers-{{ ansible_kernel }} state=present update_cache=true cache_valid_time=600"
-
       - name: Configure Vagrant .ssh directory
-        file: path=/home/vagrant/.ssh state=directory owner=vagrant group=vagrant mode=700
+        file: path=/home/vagrant/.ssh state=directory owner=vagrant group=vagrant mode=0700
 
       - name: Get Vagrant's public key
         get_url: url=https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub
                  dest=/home/vagrant/.ssh/authorized_keys
                  owner=vagrant
                  group=vagrant
-                 mode=600
+                 mode=0600
 
-      - name: Get VirtualBox version
-        shell: cat /home/vagrant/.vbox_version
-        register: virtualbox_version
-
-      - name: Mount VirtualBox guest additions ISO
-        mount: name=/tmp/vbox
-               src=/home/vagrant/VBoxGuestAdditions.iso
-               opts=loop
-               state=mounted
-               fstype=iso9660
-
-      - name: Run VirtualBox guest additions installation
-        shell: sh /tmp/vbox/VBoxLinuxAdditions.run
-        failed_when: false
-
-      - name: Unmount VirtualBox guest additions ISO
-        mount: name=/tmp/vbox
-               src=/home/vagrant/VBoxGuestAdditions.iso
-               state=unmounted
-               fstype=iso9660
-
-      - name: Remove all ISOs in vagrant home directory
-        shell: "rm /home/vagrant/*.iso"
+      - name: Disable DNS lookup for SSH 
+        shell: "echo 'UseDNS no' >> /etc/ssh/sshd_config"
 
       - name: Prepare disk for compression
         script: /tmp/packer-provisioner-ansible-local/scripts/zero-out-disk.sh

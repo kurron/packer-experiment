@@ -24,7 +24,8 @@
         "disk_size" : 40000,
         "floppy_files": [],
         "format": "ovf",
-        "guest_additions_mode": "upload",	
+        "guest_additions_mode": "upload",
+        "guest_additions_path" : "VBoxGuestAdditions_{{.Version}}.iso",
         "guest_os_type": "Ubuntu_64",
         "hard_drive_interface": "sata",
         "headless": false,
@@ -55,7 +56,9 @@
         {
             "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "type": "shell",
-            "scripts": ["ansible/scripts/passwordless-sudo.sh", "ansible/scripts/fix-staging-permissions.sh", "ansible/scripts/install-ansible.sh"]
+            "scripts": ["ansible/scripts/passwordless-sudo.sh", 
+                        "ansible/scripts/install-ansible.sh",
+                        "ansible/scripts/install-virtualbox.sh"]
         },
         {
             "playbook_dir"  : "ansible",
