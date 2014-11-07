@@ -6,3 +6,4 @@ export PACKER_LOG=activate
 packer validate trusty-x64-desktop.json
 packer build trusty-x64-desktop.json
 vagrant box add --force --name packer/trusty-x64-desktop vagrant/trusty-x64-desktop.box
+vagrant box list
