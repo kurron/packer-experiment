@@ -1,6 +1,6 @@
 {
     "description": "Builds a bare bones, Ansible enabled Ubuntu 14.04 Server x64 box",
-    "min_packer_version": "0.7.2",
+    "min_packer_version": "0.8.2",
 
     "variables": {
         "ssh_name": "vagrant",
