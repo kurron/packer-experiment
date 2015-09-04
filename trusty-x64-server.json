@@ -1,6 +1,6 @@
 {
     "description": "Builds a bare bones, Ansible enabled Ubuntu 14.04 Server x64 box",
-    "min_packer_version": "0.8.2",
+    "min_packer_version": "0.8.6",
 
     "variables": {
         "ssh_name": "vagrant",
@@ -32,9 +32,9 @@
         "http_directory" : "web-server",
         "http_port_max" : 9000,
         "http_port_min" : 8000,
-        "iso_checksum": "83aabd8dcf1e8f469f3c72fff2375195",
+        "iso_checksum": "9e5fecc94b3925bededed0fdca1bd417",
         "iso_checksum_type": "md5",
-        "iso_url": "http://mirror.pnl.gov/releases/14.04.2/ubuntu-14.04.2-server-amd64.iso",
+        "iso_url": "http://mirror.pnl.gov/releases/14.04.3/ubuntu-14.04.3-server-amd64.iso",
         "output_directory": "output-virtualbox-iso",
         "shutdown_command": "echo {{user `ssh_pass`}} | sudo -S shutdown -P now",
         "ssh_password": "{{user `ssh_pass`}}",
