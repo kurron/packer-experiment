@@ -56,14 +56,11 @@
         {
             "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "type": "shell",
-            "scripts": ["ansible/scripts/passwordless-sudo.sh", 
-                        "ansible/scripts/install-ansible-via-pip.sh",
-                        "ansible/scripts/install-virtualbox.sh"]
-        },
-        {
-            "playbook_dir"  : "ansible",
-            "playbook_file" : "ansible/ansible-server.yml",
-            "type"          : "ansible-local"
+            "scripts": ["scripts/passwordless-sudo.sh", 
+                        "scripts/configure-ssh-directory.sh",
+                        "scripts/disable-dns-lookups.sh",
+                        "scripts/install-virtualbox.sh",
+						"scripts/zero-out-disk.sh"]
         }
     ],
     "post-processors": [
