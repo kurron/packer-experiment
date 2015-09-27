@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "trusty-x64-server/5.0.2"
+  config.vm.box = "trusty-x64-desktop/5.0.2"
   config.vm.network "public_network"
   config.vm.hostname = "packer-test"
   config.ssh.username = "vagrant"
@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
 # config.ssh.forward_x11 = true
 
   config.vm.provider "virtualbox" do |v|
-      v.gui = false
+      v.gui = true
       v.customize ["modifyvm", :id, "--rtcuseutc", "on"]
       v.customize ["modifyvm", :id, "--hwvirtex", "on"]
       v.customize ["modifyvm", :id, "--nestedpaging", "on"]
