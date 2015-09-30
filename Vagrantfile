@@ -3,8 +3,8 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "trusty-x64-desktop/5.0.2"
-  config.vm.network "public_network"
-  config.vm.hostname = "packer-test"
+# config.vm.network "public_network"
+# config.vm.hostname = "packer-test"
   config.ssh.username = "vagrant"
   config.ssh.password = "vagrant"
 # config.ssh.forward_agent = true
