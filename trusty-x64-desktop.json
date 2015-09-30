@@ -56,18 +56,12 @@
         {
             "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "type": "shell",
-            "scripts": ["ansible/scripts/passwordless-sudo.sh", 
-                        "ansible/scripts/install-ansible-via-pip.sh"]
-        },
-        {
-            "playbook_dir"  : "ansible",
-            "playbook_file" : "ansible/ansible-desktop.yml",
-            "type"          : "ansible-local"
-        },
-        {
-            "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-            "type": "shell",
-            "scripts": ["ansible/scripts/install-virtualbox.sh"]
+            "scripts": ["scripts/passwordless-sudo.sh",
+			            "scripts/install-xubuntu.sh",
+			            "scripts/configure-ssh-directory.sh",
+						"scripts/disable-dns-lookups.sh",
+						"scripts/install-virtualbox.sh",
+                        "scripts/zero-out-disk.sh"]
         }
     ],
     "post-processors": [
