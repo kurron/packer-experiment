@@ -57,10 +57,10 @@
             "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "type": "shell",
             "scripts": ["scripts/passwordless-sudo.sh",
-			            "scripts/install-xubuntu.sh",
-			            "scripts/configure-ssh-directory.sh",
-						"scripts/disable-dns-lookups.sh",
-						"scripts/install-virtualbox.sh",
+                        "scripts/install-xubuntu.sh",
+                        "scripts/configure-ssh-directory.sh",
+                        "scripts/disable-dns-lookups.sh",
+                        "scripts/install-virtualbox.sh",
                         "scripts/zero-out-disk.sh"]
         }
     ],

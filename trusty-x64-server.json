@@ -60,7 +60,7 @@
                         "scripts/configure-ssh-directory.sh",
                         "scripts/disable-dns-lookups.sh",
                         "scripts/install-virtualbox.sh",
-						"scripts/zero-out-disk.sh"]
+                        "scripts/zero-out-disk.sh"]
         }
     ],
     "post-processors": [
