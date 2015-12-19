@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "trusty-x64-desktop/5.0.2"
+  config.vm.box = "trusty-x64-desktop/5.0.10"
 # config.vm.network "public_network"
 # config.vm.hostname = "packer-test"
   config.ssh.username = "vagrant"
