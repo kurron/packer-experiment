@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "trusty-x64-desktop/5.0.10"
+# config.vm.box = "trusty-x64-desktop/5.0.10"
 # config.vm.network "public_network"
 # config.vm.hostname = "packer-test"
   config.ssh.username = "vagrant"
@@ -24,4 +24,22 @@ Vagrant.configure(2) do |config|
       v.customize ["modifyvm", :id, "--vram", "24"]
       v.customize ["modifyvm", :id, "--cpus", "2"]
   end
+
+  config.vm.define "desktop" do |desktop|
+      desktop.vm.provider "virtualbox" do |v|
+          config.vm.box = "trusty-x64-desktop/5.0.10"
+          v.gui = true
+          v.name = "packer.desktop"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+  end
+  
+  config.vm.define "server" do |server|
+      server.vm.provider "virtualbox" do |v|
+          config.vm.box = "trusty-x64-server/5.0.10"
+          v.gui = true
+          v.name = "packer.server"
+      end
+  end
+  
 end
