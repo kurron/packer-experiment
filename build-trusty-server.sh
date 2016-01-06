@@ -5,5 +5,5 @@ export PACKER_LOG=activate
 
 packer validate trusty-x64-server.json
 packer build trusty-x64-server.json
-vagrant box add --force --name trusty-x64-server/5.0.10 vagrant/trusty-x64-server.box
+vagrant box add --force --name trusty-x64-server/5.0.12 vagrant/trusty-x64-server.box
 vagrant box list
