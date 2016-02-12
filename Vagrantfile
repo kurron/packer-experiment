@@ -36,7 +36,7 @@ Vagrant.configure(2) do |config|
   
   config.vm.define "server" do |server|
       server.vm.provider "virtualbox" do |v|
-          config.vm.box = "trusty-x64-server/5.0.14"
+          config.vm.box = "trusty-x64-server/5.0.14.1"
           v.gui = true
           v.name = "packer.server"
       end
