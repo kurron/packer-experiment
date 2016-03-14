@@ -1,26 +1,33 @@
-Packer Experiment
-=========
+# Overview
+This project automates the development of Vagrant boxes I use for software development.  I make
+heavy use of Docker so the boxes have a dedicated partition just for the Docker images and contaners.
 
-The idea is to use Packer to automate the creation of the Vagrant boxes I use.  Until now, I had to manually follow a recipe to create new boxes each time a new Ubuntu release came out.  Well, no more.  Packer allows me to automate the entire process.  Once I have a box created, I can run it through Vagrant and target it to VirtualBox, Docker and VMWare.
+# Prerequisites
+* a working [Packer](https://www.packer.io/) installation
+* a working [Vagrant](https://www.vagrantup.com/) installation
 
-The steps are simple:
+# Building
+Type `./build-trusty-server.sh` to build the server box and `./build-trusty-desktop.sh` to build
+the desktop box.
 
-* install Packer
-* install Vagrant
-* install VirtualBox
-* `packer validate trusty-x64-server.json` to make sure the Packer file is proper
-* `packer build trusty-x64-server.json` to create Vagrant box file
-* repeat with `packer build trusty-x64-desktop.json`
- 
-After several minutes, you should have two new Vagrant boxes ready to load into Vagrant for further refinement.  
-The only thing I have not figured out how to do is how to have the installer install the virtualization specific 
-kernel.  Right now, the stock kernel is being used.  I'm sure I'm losing a bit of performance because of that but 
-I'm not going to complain.  I can create new configurations at will.
+# Installation
+The scripts will automatically install the newly built boxes into Vagrant's cache.
 
-To try out the new server box, try this:
+# Tips and Tricks
 
-* `vagrant box add packer/trusty-x64-server trusty-x64-server.box`
-* `vagrant status`
-* `vagrant up`
+## Testing The Box
 
-Use `vagrant box add packer-trusty-x64-server vagrant/trusty-x64-server.box` and `vagrant box add packer-trusty-x64-desktop vagrant/trusty-x64-desktop.box` to import the boxes into Vagrant.
+`vagrant up server` will launch the server VM and `vagrant up desktop` will launch the desktop VM. 
+Once you are statisfied that the boxes built correctly, use `vagrant destroy` to remove the VMs.
+
+# Troubleshooting
+
+## Custom VirtualBox Appliance
+Currently, the process relies upon a VirtualBox applicance which was created by hand and is not 
+currently part of this project.  I did this because I wanted to use the virtualization aware kernel 
+and couldn't figure out how to do that in an automated fashion.
+
+# License and Credits
+This project is licensed under the [Apache License Version 2.0, January 2004](http://www.apache.org/licenses/).
+
+# List of Changes
