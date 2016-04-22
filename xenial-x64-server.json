@@ -1,12 +1,12 @@
 {
-    "description": "Builds a bare bones, Ansible enabled Ubuntu 14.04 Server x64 box",
+    "description": "Builds a bare bones, Ansible enabled Ubuntu 16.04 Server x64 box",
     "min_packer_version": "0.9.0",
 
     "variables": {
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
-        "hostname": "trusty-server",
-        "ovf": "Trusty-x64-Server.ova"
+        "hostname": "xenial-server",
+        "ovf": "Xenial-x64-Server.ova"
     },
 
     "builders": [{
@@ -37,7 +37,7 @@
 		    ["modifyvm", "{{.Name}}", "--clipboard", "bidirectional"]
 	],
 	"vboxmanage_post": [],
-	"vm_name": "trusty-x64-server"
+	"vm_name": "xenial-x64-server"
     }],	
     "provisioners": [
         {
@@ -56,7 +56,7 @@
              "compression_level": 9,
              "include": [],
              "keep_input_artifact": false,
-             "output": "vagrant/trusty-x64-server.box",
+             "output": "vagrant/xenial-x64-server.box",
              "type": "vagrant"
         }
     ]
