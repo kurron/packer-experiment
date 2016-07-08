@@ -36,7 +36,7 @@ Vagrant.configure(2) do |config|
   
   config.vm.define "server" do |server|
       server.vm.provider "virtualbox" do |v|
-          config.vm.box = "xenial-x64-server/5.0.20"
+          config.vm.box = "xenial-x64-server/5.0.24"
           v.gui = true
           v.name = "packer.server"
       end
