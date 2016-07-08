@@ -27,7 +27,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define "desktop" do |desktop|
       desktop.vm.provider "virtualbox" do |v|
-          config.vm.box = "xenial-x64-desktop/5.0.20"
+          config.vm.box = "xenial-x64-desktop/5.0.24"
           v.gui = true
           v.name = "packer.desktop"
           v.customize ["modifyvm", :id, "--memory", "4096"]
