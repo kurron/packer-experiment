@@ -5,5 +5,5 @@ export PACKER_LOG=activate
 
 packer validate xenial-x64-server.json
 packer build --force xenial-x64-server.json
-vagrant box add --force --name xenial-x64-server/5.1.2 vagrant/xenial-x64-server.box
+vagrant box add --clean --force --name xenial-x64-server/5.1.4 vagrant/xenial-x64-server.box
 vagrant box list
