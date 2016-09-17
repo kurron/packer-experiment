@@ -58,6 +58,17 @@
              "keep_input_artifact": false,
              "output": "vagrant/xenial-x64-server.box",
              "type": "vagrant"
+        },
+		{
+            "type": "atlas",
+            "artifact": "kurron/xenial-x64-server",
+            "artifact_type": "vagrant.box",
+            "metadata": {
+			    "provider": "virtualbox",
+				"version": "5.1.6",
+				"description": "Upgrade to VirtualBox 5.1.6",
+                "created_at": "{{timestamp}}"
+            }
         }
     ]
 }
