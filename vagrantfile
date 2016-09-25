@@ -43,6 +43,24 @@ Vagrant.configure(2) do |config|
       end
   end
   
+  config.vm.define "kubuntu" do |kubuntu|
+      kubuntu.vm.provider "virtualbox" do |v|
+          config.vm.box = "xenial-x64-kubuntu/5.1.6"
+          v.gui = true
+          v.name = "packer.kubuntu"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+  end
+  
+  config.vm.define "mate" do |mate|
+      mate.vm.provider "virtualbox" do |v|
+          config.vm.box = "xenial-x64-mate/5.1.6"
+          v.gui = true
+          v.name = "packer.mate"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+  end
+  
   config.vm.define "server" do |server|
       server.vm.provider "virtualbox" do |v|
           config.vm.box = "xenial-x64-server/5.1.6"
