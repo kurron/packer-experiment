@@ -1,6 +1,6 @@
 {
     "description": "Fully provisioned Ansible enabled Xubuntu 16.04 Desktop x64 box",
-    "min_packer_version": "0.10.1",
+    "min_packer_version": "0.10.2",
 
     "variables": {
         "ssh_name": "vagrant",
