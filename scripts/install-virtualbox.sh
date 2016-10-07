@@ -1,9 +1,10 @@
 #!/bin/sh -x
 
+# Do not think we need this since updates happen in an earlier script
 # Making sure everything is updated
-apt-get update
-apt-get -y upgrade
-apt-get -f install 
+#apt-get update
+#apt-get -y upgrade
+#apt-get -f install 
 
 # Install the VirtualBox guest additions
 VBOX_VERSION=$(cat /home/vagrant/.vbox_version)
