@@ -39,7 +39,21 @@
 	"vboxmanage_post": [],
 	"vm_name": "xenial-x64-xubuntu-full-desktop"
     }],	
-    "provisioners": [],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "files/inventory",
+            "destination": "/tmp/inventory"
+        },
+        {
+            "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+            "type": "shell",
+            "scripts": ["scripts/install-ansible.sh",
+                        "scripts/install-docker.sh",
+                        "scripts/install-development-tools.sh",
+                        "scripts/install-operations-tools.sh"]
+        }
+    ],
     "post-processors": [
         [{
              "compression_level": 9,
