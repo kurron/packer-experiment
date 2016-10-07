@@ -25,6 +25,15 @@ Vagrant.configure(2) do |config|
       v.customize ["modifyvm", :id, "--cpus", "2"]
   end
 
+  config.vm.define "xubuntufull" do |xubuntufull|
+      xubuntufull.vm.provider "virtualbox" do |v|
+          config.vm.box = "xenial-x64-xubuntu-full-desktop/5.1.6"
+          v.gui = true
+          v.name = "packer.xubuntufull"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+  end
+
   config.vm.define "xubuntu" do |xubuntu|
       xubuntu.vm.provider "virtualbox" do |v|
           config.vm.box = "xenial-x64-xubuntu/5.1.6"
