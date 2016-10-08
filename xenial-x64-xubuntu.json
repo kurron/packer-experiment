@@ -60,14 +60,14 @@
              "output": "vagrant/xenial-x64-xubuntu.box",
              "type": "vagrant"
         },
-	{
+	    {
             "type": "atlas",
             "artifact": "kurron/xenial-x64-xubuntu-desktop",
             "artifact_type": "vagrant.box",
             "metadata": {
-		"provider": "virtualbox",
-		"version": "5.1.7",
-		"description": "Upgrade to VirtualBox 5.1.6",
+		        "provider": "virtualbox",
+		        "version": "5.1.7",
+		        "description": "Upgrade to VirtualBox 5.1.6",
                 "created_at": "{{timestamp}}"
             }
         }]
