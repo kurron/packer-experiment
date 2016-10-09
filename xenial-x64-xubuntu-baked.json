@@ -52,6 +52,22 @@
                         "scripts/install-development-tools.sh",
                         "scripts/install-operations-tools.sh",
                         "scripts/install-docker.sh"]
+        },
+        {
+            "type": "shell",
+            "inline": ["sudo rm -f /home/vagrant/Downloads/*.gz"]
+        },
+        {
+            "type": "shell",
+            "inline": ["sudo rm -f /home/vagrant/Downloads/*.zip"]
+        },
+        {
+            "type": "shell",
+            "inline": ["sudo rm -f /root/*.gz"]
+        },
+        {
+            "type": "shell",
+            "inline": ["sudo rm -f /root/*.zip"]
         }
     ],
     "post-processors": [

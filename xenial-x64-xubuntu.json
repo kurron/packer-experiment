@@ -53,7 +53,8 @@
         }
     ],
     "post-processors": [
-        [{
+        [
+        {
              "compression_level": 9,
              "include": [],
              "keep_input_artifact": true,
