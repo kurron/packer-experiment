@@ -6,6 +6,8 @@
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "xenial-xubuntu",
+        "version": "5.1.8",
+        "comment": "Upgrade to VirtualBox 5.1.6",
         "ova": "keep/xenial-x64-xubuntu.ova"
     },
 
@@ -84,8 +86,8 @@
             "artifact_type": "vagrant.box",
             "metadata": {
 		        "provider": "virtualbox",
-		        "version": "5.1.6",
-		        "description": "Upgrade to VirtualBox 5.1.6",
+		        "version": "{{user `version`}}",
+		        "description": "{{user `comment`}}",
                 "created_at": "{{timestamp}}"
             }
         }]
