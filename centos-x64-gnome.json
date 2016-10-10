@@ -6,6 +6,8 @@
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "centos-gnome",
+		"version": "5.1.6",
+        "comment": "Upgrade to VirtualBox 5.1.6",
         "ova": "keep/CentOS-7.ova"
     },
 
@@ -59,6 +61,17 @@
              "keep_input_artifact": true,
              "output": "vagrant/centos-x64-gnome.box",
              "type": "vagrant"
+        },
+	    {
+            "type": "atlas",
+            "artifact": "kurron/centos-x64-gnome-desktop",
+            "artifact_type": "vagrant.box",
+            "metadata": {
+		        "provider": "virtualbox",
+                "version": "{{user `version`}}",
+		        "description": "{{user `comment`}}",
+                "created_at": "{{timestamp}}"
+            }
         }
         ]
     ]
