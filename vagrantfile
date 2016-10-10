@@ -45,6 +45,9 @@ Vagrant.configure(2) do |config|
       centosgnome.vm.provision "shell" do |remote|
         remote.path = "scripts/install-development-tools.sh"
       end
+      centosgnome.vm.provision "shell" do |remote|
+        remote.path = "scripts/install-docker.sh"
+      end
   end
 
   config.vm.define "xubuntufull" do |xubuntufull|
