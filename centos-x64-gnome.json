@@ -48,6 +48,7 @@
             "type": "shell",
             "scripts": ["scripts/passwordless-sudo.sh",
                         "scripts/install-tools-centos.sh",
+                        "scripts/install-git-centos.sh",
                         "scripts/configure-ssh-directory.sh",
                         "scripts/disable-dns-lookups.sh",
                         "scripts/install-virtualbox.sh",
