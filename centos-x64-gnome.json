@@ -6,7 +6,7 @@
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "centos-gnome",
-		"version": "5.1.6",
+	"version": "5.1.7",
         "comment": "Upgrade to VirtualBox 5.1.6",
         "ova": "keep/CentOS-7.ova"
     },
