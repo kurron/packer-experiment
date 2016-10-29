@@ -1,13 +1,13 @@
 {
     "description": "Builds a bare bones, Ansible enabled Xubuntu 16.04 Desktop x64 box",
-    "min_packer_version": "0.10.1",
+    "min_packer_version": "0.11.0",
 
     "variables": {
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "xenial-xubuntu",
-        "version": "5.1.7",
-        "comment": "Upgrade to VirtualBox 5.1.6",
+        "version": "5.1.8",
+        "comment": "Upgrade to VirtualBox 5.1.8",
         "ova": "Xenial-x64-Server.ova"
     },
 
@@ -68,9 +68,9 @@
             "artifact": "kurron/xenial-x64-xubuntu-desktop",
             "artifact_type": "vagrant.box",
             "metadata": {
-		        "provider": "virtualbox",
+		"provider": "virtualbox",
                 "version": "{{user `version`}}",
-		        "description": "{{user `comment`}}",
+		"description": "{{user `comment`}}",
                 "created_at": "{{timestamp}}"
             }
         }]
