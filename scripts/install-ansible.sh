@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 until sudo apt-get -y update; do echo "Waiting for apt-get lock"; sleep 5; done
 
@@ -13,3 +13,11 @@ sudo pip install --upgrade boto
 # https://github.com/ansible/ansible/issues/17495
 sudo pip install 'docker-py==1.9.0'
 
+# install the required Ansible roles
+sudo ansible-galaxy install --verbose --role-file /tmp/desktop-requirements.yml
+
+# for some reason, this is owned by root so we clear it out for the normal user
+sudo rm -rf /home/vagrant/.ansible
+
+# run the playbook
+ansible-playbook --verbose --inventory-file /tmp/inventory --user vagrant /tmp/desktop.yml

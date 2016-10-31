@@ -1,14 +1,14 @@
 {
     "description": "Fully provisioned Ansible enabled Xubuntu 16.04 Desktop x64 box",
-    "min_packer_version": "0.10.2",
+    "min_packer_version": "0.11.0",
 
     "variables": {
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "xenial-xubuntu",
-        "version": "5.1.8",
-        "comment": "Upgrade to VirtualBox 5.1.6",
-        "ova": "keep/xenial-x64-xubuntu.ova"
+        "version": "5.1.9",
+        "comment": "Upgrade to VirtualBox 5.1.8",
+        "ova": "Xenial-x64-Xubuntu.ova"
     },
 
     "builders": [{
@@ -41,35 +41,43 @@
 	"vboxmanage_post": [],
 	"vm_name": "xenial-x64-xubuntu-baked"
     }],	
-    "provisioners": [
+    "provisioners": [        
         {
             "type": "file",
             "source": "files/inventory",
             "destination": "/tmp/inventory"
         },
         {
+            "type": "file",
+            "source": "files/desktop-requirements.yml",
+            "destination": "/tmp/desktop-requirements.yml"
+        },
+        {
+            "type": "file",
+            "source": "files/desktop.yml",
+            "destination": "/tmp/desktop.yml"
+        },
+        {
             "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "type": "shell",
-            "scripts": ["scripts/install-ansible.sh",
-                        "scripts/install-development-tools.sh",
-                        "scripts/install-operations-tools.sh",
-                        "scripts/install-docker.sh"]
+            "scripts": ["scripts/passwordless-sudo.sh", 
+                        "scripts/install-tools.sh",
+                        "scripts/configure-ssh-directory.sh",
+                        "scripts/disable-dns-lookups.sh",
+                        "scripts/install-virtualbox.sh"]
         },
         {
             "type": "shell",
-            "inline": ["sudo rm -f /home/vagrant/Downloads/*.gz"]
+            "scripts": ["scripts/install-ansible.sh"]
         },
         {
             "type": "shell",
-            "inline": ["sudo rm -f /home/vagrant/Downloads/*.zip"]
+            "inline": ["sudo rm -f /home/vagrant/Downloads/*.*"]
         },
         {
+            "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "type": "shell",
-            "inline": ["sudo rm -f /root/*.gz"]
-        },
-        {
-            "type": "shell",
-            "inline": ["sudo rm -f /root/*.zip"]
+            "scripts": ["scripts/zero-out-disk.sh"]
         }
     ],
     "post-processors": [
@@ -85,9 +93,9 @@
             "artifact": "kurron/xenial-x64-xubuntu-desktop-baked",
             "artifact_type": "vagrant.box",
             "metadata": {
-		        "provider": "virtualbox",
-		        "version": "{{user `version`}}",
-		        "description": "{{user `comment`}}",
+		"provider": "virtualbox",
+		"version": "{{user `version`}}",
+		"description": "{{user `comment`}}",
                 "created_at": "{{timestamp}}"
             }
         }]
