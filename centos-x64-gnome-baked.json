@@ -1,14 +1,14 @@
 {
     "description": "Fully provisioned Ansible enabled CentOS 7 Desktop x64 box",
-    "min_packer_version": "0.10.2",
+    "min_packer_version": "0.11.0",
 
     "variables": {
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "centos-gnome",
-        "version": "5.1.7",
-        "comment": "Upgrade to VirtualBox 5.1.6",
-        "ova": "keep/centos-x64-gnome.ova"
+        "version": "5.1.8",
+        "comment": "Upgrade to VirtualBox 5.1.8",
+        "ova": "CentOS-7.ova"
     },
 
     "builders": [{
@@ -30,13 +30,15 @@
         "ssh_port": 22,
         "ssh_username": "{{user `ssh_name`}}",
         "ssh_wait_timeout": "20m",
+        "ssh_pty": "true",
         "type": "virtualbox-ovf",
 	"vboxmanage": [ 
-		    ["modifyvm", "{{.Name}}", "--vram", "32"],
-		    ["modifyvm", "{{.Name}}", "--memory", "4096"],
-		    ["modifyvm", "{{.Name}}", "--cpus", "2"],
-		    ["modifyvm", "{{.Name}}", "--audio", "none"],
-		    ["modifyvm", "{{.Name}}", "--clipboard", "bidirectional"]
+	    ["modifyvm", "{{.Name}}", "--vram", "32"],
+	    ["modifyvm", "{{.Name}}", "--memory", "4096"],
+	    ["modifyvm", "{{.Name}}", "--cpus", "2"],
+	    ["modifyvm", "{{.Name}}", "--audio", "none"],
+	    ["modifyvm", "{{.Name}}", "--clipboard", "bidirectional"],
+            ["modifyvm", "{{.Name}}", "--nic1","NAT"]
 	],
 	"vboxmanage_post": [],
 	"vm_name": "centos-x64-gnome-baked"
@@ -48,28 +50,37 @@
             "destination": "/tmp/inventory"
         },
         {
+            "type": "file",
+            "source": "files/desktop-requirements.yml",
+            "destination": "/tmp/desktop-requirements.yml"
+        },
+        {
+            "type": "file",
+            "source": "files/desktop.yml",
+            "destination": "/tmp/desktop.yml"
+        },
+        {
             "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "type": "shell",
-            "scripts": ["scripts/install-ansible-centos.sh",
-                        "scripts/install-development-tools.sh",
-                        "scripts/install-operations-tools.sh",
-                        "scripts/install-docker.sh"]
+            "scripts": ["scripts/passwordless-sudo.sh",
+                        "scripts/install-tools-centos.sh",
+                        "scripts/install-git-centos.sh",
+                        "scripts/configure-ssh-directory.sh",
+                        "scripts/disable-dns-lookups.sh",
+                        "scripts/install-virtualbox.sh"]
         },
         {
             "type": "shell",
-            "inline": ["sudo rm -f /home/vagrant/Downloads/*.gz"]
+            "scripts": ["scripts/install-ansible-centos.sh"]
         },
         {
             "type": "shell",
-            "inline": ["sudo rm -f /home/vagrant/Downloads/*.zip"]
+            "inline": ["sudo rm -f /home/vagrant/Downloads/*.*"]
         },
         {
+            "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
             "type": "shell",
-            "inline": ["sudo rm -f /root/*.gz"]
-        },
-        {
-            "type": "shell",
-            "inline": ["sudo rm -f /root/*.zip"]
+            "scripts": ["scripts/zero-out-disk.sh"]
         }
     ],
     "post-processors": [
@@ -79,15 +90,15 @@
              "keep_input_artifact": false,
              "output": "vagrant/centos-x64-gnome-baked.box",
              "type": "vagrant"
-        },
-	    {
+         },
+	 {
             "type": "atlas",
             "artifact": "kurron/centos-x64-gnome-desktop-baked",
             "artifact_type": "vagrant.box",
             "metadata": {
-		        "provider": "virtualbox",
-		        "version": "{{user `version`}}",
-		        "description": "{{user `comment`}}",
+		"provider": "virtualbox",
+		"version": "{{user `version`}}",
+		"description": "{{user `comment`}}",
                 "created_at": "{{timestamp}}"
             }
         }]
