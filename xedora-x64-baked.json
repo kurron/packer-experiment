@@ -6,7 +6,7 @@
         "ssh_name": "vagrant",
         "ssh_pass": "vagrant",
         "hostname": "xedora",
-        "version": "5.1.8",
+        "version": "5.1.9",
         "comment": "Upgrade to VirtualBox 5.1.8",
         "ova": "Xedora-x64.ova"
     },
