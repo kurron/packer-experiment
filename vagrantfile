@@ -74,6 +74,16 @@ Vagrant.configure(2) do |config|
 #     end
   end
 
+  config.vm.define "xedora" do |xedora|
+      xedora.vm.provider "virtualbox" do |v|
+          v.gui = true
+          v.name = "packer.xedora"
+          v.customize ["modifyvm", :id, "--memory", "4096"]
+      end
+#     xedora.vm.box = "xenial-x64-xubuntu-baked/5.1.9"
+      xedora.vm.box = "xedora-x64-baked/5.1.8"
+  end
+
   config.vm.define "xubuntu" do |xubuntu|
       xubuntu.vm.provider "virtualbox" do |v|
           v.gui = true

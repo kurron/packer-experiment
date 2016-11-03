@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# dnf --assumeyes update
+# dnf --assumeyes install gcc kernel-devel kernel-headers dkms make bzip2 perl
 
-dnf --assumeyes update
-dnf --assumeyes install binutils qt gcc make patch libgomp glibc-headers glibc-devel kernel-headers kernel-devel dkms git-all
+# I don't remember what this for
+dnf --assumeyes install binutils qt patch libgomp glibc-headers glibc-devel git-all
